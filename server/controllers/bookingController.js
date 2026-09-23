@@ -54,7 +54,7 @@ exports.bookEvent = async (req, res) => {
 
 exports.confirmBooking = async (req, res) => {
     try {
-        const { paymentStatus } = req.body; // 'paid' or 'not_paid'
+        const { paymentStatus } = req.body; // it check payement 'paid' or 'not_paid'
         const booking = await Booking.findById(req.params.id).populate('userId').populate('eventId');
         if (!booking) return res.status(404).json({ message: 'Booking not found' });
 

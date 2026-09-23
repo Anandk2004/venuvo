@@ -1,7 +1,7 @@
 {
-    "name": "Venuvo-server",
+    "name": "Eventora-server",
     "version": "1.0.0",
-    "description": "Venuvo Backend",
+    "description": "Eventora Backend",
     "main": "server.js",
     "scripts": {
         "start": "node server.js",

@@ -23,7 +23,7 @@ exports.register = async (req, res) => {
             name,
             email,
             password: hashedPassword,
-            role: 'user', // Hardcoded to prevent frontend passing role
+            role: 'user', // it is hardcoded to prevent frontend passing role
             isVerified: false
         });
 
