@@ -12,7 +12,12 @@ const bookingRoutes = require('./routes/bookings');
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+    origin: [
+        'http://localhost:5173',
+        'https://venuvo.vercel.app'
+    ]
+}));
 app.use(express.json());
 
 // Home route
