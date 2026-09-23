@@ -1,8 +1,9 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
+//user authentication Middleware
 const protect = async (req, res, next) => {
-    let token = req.headers.authorization;
+    let token = req.headers.authorization; //towken form postman se 
     if (token && token.startsWith('Bearer')) {
         try {
             token = token.split(' ')[1];

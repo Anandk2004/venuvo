@@ -44,20 +44,21 @@ exports.login = async (req, res) => {
     try {
         const { email, password } = req.body;
         const user = await User.findOne({ email });
-        if (!user) return res.status(400).json({ message: 'Invalid credentials' });
+        if (!user) return res.status(400).json({ message: 'Invalid credentials,please sign up first' });
 
         const isMatch = await bcrypt.compare(password, user.password);
-        if (!isMatch) return res.status(400).json({ message: 'Invalid credentials' });
+        if (!isMatch) return res.status(400).json({ message: 'Invalid credentials, check your password' });
 
         if (!user.isVerified && user.role !== 'admin') {
             const otp = generateOTP();
-            await OTP.findOneAndDelete({ email: user.email, action: 'account_verification' });
+            await OTP.findOneAndDelete({ email: user.email, action: 'account_verification' });// delete all old otp
             await OTP.create({ email: user.email, otp, action: 'account_verification' });
             await sendOTPEmail(user.email, otp, 'account_verification');
             return res.status(403).json({ message: 'Account not verified', needsVerification: true, email: user.email });
         }
 
         res.json({
+            message:'Login successfully',
             _id: user.id,
             name: user.name,
             email: user.email,
@@ -77,7 +78,7 @@ exports.verifyOTP = async (req, res) => {
         if (!validOTP) {
             return res.status(400).json({ message: 'Invalid or expired OTP' });
         }
-
+     // agar otp mil gaya
         const user = await User.findOneAndUpdate({ email }, { isVerified: true }, { new: true });
         await OTP.deleteOne({ _id: validOTP._id }); // Delete OTP after usage
 

@@ -5,6 +5,7 @@ const { sendBookingEmail, sendOTPEmail } = require('../utils/email');
 
 const generateOTP = () => Math.floor(100000 + Math.random() * 900000).toString();
 
+// yeh bas otp send ke liye hai .
 exports.sendBookingOTP = async (req, res) => {
     try {
         const otp = generateOTP();
@@ -17,6 +18,7 @@ exports.sendBookingOTP = async (req, res) => {
     }
 };
 
+//
 exports.bookEvent = async (req, res) => {
     try {
         const { eventId, otp } = req.body;
